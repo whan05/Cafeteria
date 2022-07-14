@@ -10,6 +10,7 @@ const autoprefixer = require('autoprefixer');
 // IMAGENES
 
 const imagemin = require('gulp-imagemin');
+const squoosh = require('gulp-libsquoosh');
 
 
 function css( done ) {
@@ -27,14 +28,25 @@ function css( done ) {
     done();
 }
 
-function imagenes( done ) {
-    // 1 - identificar archivo\
-    src('./src/img/**/*')
-        // 2 - Optimizar imagenes
-        .pipe( imagemin( {optoizationLevel: 3} ) )
-            // 3 - Guardar imagenes
-            .pipe(dest('build/img'))
-    
+ function imagenes( done ) {
+     // 1 - identificar archivo\
+     src('./src/img/**/*')
+         // 2 - Optimizar imagenes
+         .pipe( imagemin( {optoizationLevel: 3} ) )
+             // 3 - Guardar imagenes
+             .pipe(dest('./build/img'))
+  
+     done();
+ }
+
+function webpAvif( done) {
+    src('./src/img/**/*.{ png, jpg }')
+        .pipe( squoosh( 
+            {
+                webp: {},
+                avif: {},
+            }) )
+            .pipe( dest( 'build/img' ) )
     done();
 }
 
@@ -49,9 +61,10 @@ function dev() {
 exports.css = css;
 exports.dev = dev;
 exports.imagenes = imagenes;
+exports.webpAvif = webpAvif;
 
 // Tareas por default
-exports.default = series( imagenes, css, dev);
+exports.default = series(  imagenes, webpAvif, css, dev);
 
 // series - Incia una tarea, hasta que finaliza ejecuta la siguiente
 // parallel - Todas inician al mismo tiempo
