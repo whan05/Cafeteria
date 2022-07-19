@@ -4,6 +4,11 @@
 .header {
     padding: 5rem 0;
     position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @include m.tablet { 
+        min-height: 70rem;
+     }
 
     &::before {
         content: "";
@@ -20,9 +25,6 @@
 .contenido-header {
     padding: 5rem 0;
     position: relative;
-    @include m.tablet { 
-        min-height: 70rem;
-     }
 
     h1 {
         color: v.$blanco;
@@ -39,4 +41,20 @@
 
 .header-inicio {
     background-image: url(../img/header_inicio.jpg);
+}
+
+.header-nosotros {
+    background-image: url(../img/header_nosotros.jpg);
+}
+
+.header-proceso {
+    background-image: url(../img/header_proceso.jpg);
+}
+
+.header-menu {
+    background-image: url(../img/header_menu.jpg);
+}
+
+.header-galeria {
+    background-image: url(../img/header_galeria.jpg);
 }
